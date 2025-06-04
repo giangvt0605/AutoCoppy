@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoCopy WebApp</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  Hello world
+  <div class="container">
+    <h2>AutoCopy Dữ liệu</h2>
+    <textarea id="inputArea" placeholder="Nhập từng dòng dữ liệu tại đây..."></textarea>
+    <button onclick="start()">Bắt đầu</button>
+    <div id="currentLine" onclick="copyCurrent()">📋 Nhấn để sao chép dòng hiện tại</div>
+  </div>
   <script src="script.js"></script>
 </body>
-
 </html>
