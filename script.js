@@ -1,78 +1,56 @@
 let data = [];
 let currentIndex = 0;
-let copiedLines = [];
 
 const inputData = document.getElementById("inputData");
-const startBtn = document.getElementById("startBtn");
-const prevBtn = document.getElementById("prevBtn");
-const output = document.getElementById("output");
+const currentLineDiv = document.getElementById("currentLine");
 const lineStatus = document.getElementById("lineStatus");
-const currentLineBox = document.getElementById("currentLine");
 
-function updateOutput() {
-  if (data.length === 0) {
-    output.value = "";
-    currentLineBox.textContent = "📋 Không có dữ liệu";
-    lineStatus.textContent = "Dòng hiện tại: 0 / 0";
-    return;
-  }
-  if (currentIndex < 0) currentIndex = 0;
-  if (currentIndex >= data.length) currentIndex = data.length - 1;
-
-  const currentText = data[currentIndex];
-  output.value = currentText;
-  currentLineBox.textContent = "📋 " + currentText;
-
-  // Cập nhật trạng thái màu dòng hiện tại
-  if (copiedLines.includes(currentIndex)) {
-    currentLineBox.style.backgroundColor = "#d4edda"; // Xanh nhạt: đã copy
-  } else {
-    currentLineBox.style.backgroundColor = "#e9ecef"; // Mặc định
-  }
-
-  lineStatus.textContent = `Dòng hiện tại: ${currentIndex + 1} / ${data.length}`;
-}
-
-function nextLine() {
-  if (currentIndex < data.length - 1) {
-    currentIndex++;
-    updateOutput();
-  }
-}
-
-function prevLine() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateOutput();
-  }
-}
-
-function copyToClipboard() {
-  const text = data[currentIndex];
-  navigator.clipboard.writeText(text).then(() => {
-    if (!copiedLines.includes(currentIndex)) {
-      copiedLines.push(currentIndex); // đánh dấu là đã copy
-    }
-    updateOutput();
-  });
-}
-
-startBtn.addEventListener("click", () => {
-  data = inputData.value.split("\n").map(line => line.trim()).filter(line => line);
+// Bắt đầu: tách dòng và hiển thị dòng đầu tiên
+document.getElementById("startBtn").addEventListener("click", () => {
+  data = inputData.value.split("\n").filter(line => line.trim() !== "");
   currentIndex = 0;
-  copiedLines = [];
-  updateOutput();
+  showCurrentLine();
+});
 
-  if (data.length > 0) {
-    const interval = setInterval(() => {
-      if (currentIndex < data.length - 1) {
-        currentIndex++;
-        updateOutput();
-      } else {
-        clearInterval(interval);
-      }
-    }, 3000);
+// Quay lại dòng trước
+document.getElementById("prevBtn").addEventListener("click", () => {
+  if (currentIndex > 1) {
+    currentIndex -= 2; // Trừ 2 vì sau showCurrentLine sẽ +1
+    showCurrentLine();
   }
 });
 
-prevBtn.addEventListener("click", prevLine);
+// Hiển thị dòng hiện tại và đánh dấu là đã sao chép
+function showCurrentLine() {
+  if (currentIndex < data.length) {
+    const currentText = data[currentIndex].replace(/^✅ /, ""); // Xóa dấu ✅ nếu có
+    currentLineDiv.textContent = "📋 " + currentText;
+    lineStatus.textContent = `Dòng hiện tại: ${currentIndex + 1} / ${data.length}`;
+    markLineAsCopied(currentIndex);
+    currentIndex++;
+  } else {
+    currentLineDiv.textContent = "✅ Đã hoàn tất tất cả các dòng";
+    lineStatus.textContent = `Dòng hiện tại: ${data.length} / ${data.length}`;
+  }
+}
+
+// Sao chép dòng hiện tại vào clipboard
+function copyToClipboard() {
+  const text = currentLineDiv.textContent.replace(/^📋 /, "");
+  if (text && !text.includes("Đã hoàn tất")) {
+    navigator.clipboard.writeText(text).then(() => {
+      currentLineDiv.style.backgroundColor = "#d4edda"; // màu xanh nhạt báo đã copy
+      showCurrentLine(); // ✅ Tự động chuyển sang dòng tiếp theo
+    });
+  }
+}
+
+
+// Đổi màu dòng đã sao chép trong textarea
+function markLineAsCopied(index) {
+  const lines = inputData.value.split("\n");
+  if (!lines[index].startsWith("✅ ")) {
+    lines[index] = "✅ " + lines[index];
+    inputData.value = lines.join("\n");
+  }
+}
