@@ -13,22 +13,43 @@ body {
 }
 textarea {
   width: 100%;
-  height: 150px;
+  height: 100px;
   padding: 10px;
   margin-bottom: 10px;
 }
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
 button {
-  width: 100%;
+  flex: 1;
   padding: 10px;
-  background: #28a745;
+  font-size: 16px;
   color: white;
   border: none;
-  font-size: 16px;
+  border-radius: 4px;
+}
+.green {
+  background-color: #28a745;
+}
+.blue {
+  background-color: #007bff;
 }
 #currentLine {
-  margin-top: 15px;
+  margin-top: 5px;
   padding: 12px;
   border: 1px dashed gray;
   background: #e9ecef;
   cursor: pointer;
+  font-weight: bold;
+}
+#output {
+  margin-top: 8px;
+}
+#lineStatus {
+  text-align: center;
+  margin-top: 5px;
+  font-weight: bold;
 }

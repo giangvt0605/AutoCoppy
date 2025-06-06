@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AutoCopy WebApp</title>
+  <title>AutoCoppyNext</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h2>AutoCopy Dữ liệu</h2>
-    <textarea id="inputArea" placeholder="Nhập từng dòng dữ liệu tại đây..."></textarea>
-    <button onclick="start()">Bắt đầu</button>
-    <div id="currentLine" onclick="copyCurrent()">📋 Nhấn để sao chép dòng hiện tại</div>
+    <h1>AutoCoppyNext</h1>
+    <textarea id="inputData" placeholder="Nhập dữ liệu tại đây, mỗi dòng là 1 mục"></textarea>
+
+    <div class="button-row">
+      <button id="startBtn" class="green">Bắt đầu</button>
+      <button id="prevBtn" class="blue">Quay lại dòng trước</button>
+    </div>
+
+    <div id="currentLine" onclick="copyToClipboard()">📋 Nhấn để sao chép dòng hiện tại</div>
+    <div id="lineStatus">Dòng hiện tại: 1 / 0</div>
+    
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
