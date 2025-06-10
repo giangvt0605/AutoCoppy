@@ -5,10 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AutoCoppyNext</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .file-inputs {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .file-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-group input[type="file"] {
+      width: auto;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>AutoCoppyNext</h1>
+
+    <!-- Nhóm chọn tệp CSV + TXT -->
+    <div class="file-inputs">
+      <div class="file-group">
+        <input type="file" id="csvFile" accept=".csv" />
+        <button id="loadCSVBtn">Tải dữ liệu từ CSV</button>
+      </div>
+      <div class="file-group">
+        <input type="file" id="txtFile" accept=".txt" />
+        <button id="loadTXTBtn">Tải dữ liệu từ TXT</button>
+      </div>
+    </div>
+
     <textarea id="inputData" placeholder="Nhập dữ liệu tại đây, mỗi dòng là 1 mục"></textarea>
 
     <div class="button-row">
@@ -18,7 +50,6 @@
 
     <div id="currentLine" onclick="copyToClipboard()">📋 Nhấn để sao chép dòng hiện tại</div>
     <div id="lineStatus">Dòng hiện tại: 1 / 0</div>
-    
   </div>
 
   <script src="script.js"></script>

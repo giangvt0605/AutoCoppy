@@ -53,3 +53,16 @@ button {
   margin-top: 5px;
   font-weight: bold;
 }
+#sheetLink {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+#loadSheetBtn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin-bottom: 15px;
+}
